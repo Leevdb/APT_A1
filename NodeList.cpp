@@ -2,25 +2,52 @@
 #include <iostream>
 
 NodeList::NodeList(){
-    // TODO
+    //setting all values in array to null 
+    for (int i = 0; i < NODE_LIST_ARRAY_MAX_SIZE ; i++) {
+        nodes[i] = nullptr;
+    }
+    //current array length is zero
+    length = 0;
 }
 
 NodeList::~NodeList(){
-    // TODO
+    for (int i = 0; i < length; i++){
+        delete nodes[i];
+        nodes[i] = nullptr;
+    }
 }
 
 NodeList::NodeList(NodeList& other){
-    // TODO
+   for (int i = 0; i < NODE_LIST_ARRAY_MAX_SIZE ; i++){
+        nodes[i] = nullptr;
+    }
+
+    length = other.length;
+    for (int i = 0; i < length; i++)
+    {
+        nodes[i] = new Node(*other.nodes[i]);
+    }
+    
 }
 
 int NodeList::getLength(){
-    // TODO
+     return length;
 }
 
 void NodeList::addElement(Node* newPos){
-    // TODO
+      Node* tempNode = new Node(*newPos);
+
+    if(length < NODE_LIST_ARRAY_MAX_SIZE - 1){
+        nodes[length] = tempNode;
+        length++;
+    }
 }
 
 Node* NodeList::getNode(int i){
-    // TODO
+    Node* node = nullptr;
+    //checking that not going out of array bounds, if ok return the node at the point.
+    if (i >=0 && i < length){
+        node = nodes[i];
+    }
+    return node;
 }

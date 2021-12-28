@@ -55,11 +55,30 @@ int main(int argc, char** argv){
 }
 
 void readEnvStdin(Env env){
-    //TODO 
+    int charsRead = 0;
+    
+    //nested for loops to read in env
+    for(int row = 0; row < ENV_DIM; row++){
+        for(int col = 0; col < ENV_DIM; col++){
+            if(std::cin.good()) {
+            std::cin >> env[row][col];
+            charsRead ++;
+            }
+        }
+    }
+
+    if (charsRead != (ENV_DIM * ENV_DIM)) {
+        std::cerr   << "ERROR: Only read " << charsRead  << " characters," << (ENV_DIM * ENV_DIM) << "charaters required, check input file." <<std::endl;;
+    }
 }
 
 void printEnvStdout(Env env, NodeList* solution) {
-    //TODO
+     for(int row = 0; row < ENV_DIM; row++){
+        for(int col = 0; col < ENV_DIM; col++){
+            std::cout << env[row][col];
+        }
+        std::cout << std::endl;
+    }
 }
 
 void testNode() {

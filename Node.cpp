@@ -9,9 +9,21 @@ Node::Node(int row, int col, int dist_traveled)
     this->dist_traveled = dist_traveled;// TODO
 }
 
+Node::Node(int row, int col){
+    this->row = row;
+    this->col = col;
+}
+
 //deconstructor
 Node::~Node(){
    delete this;
+}
+
+Node::Node(Node& other){
+    this->row = other.row;
+    this->col = other.col;
+    this->dist_traveled = other.dist_traveled;
+	
 }
 
 int Node::getRow(){
@@ -28,6 +40,13 @@ int Node::getDistanceTraveled(){
 void Node::setDistanceTraveled(int dist_traveled)
 {
     this->dist_traveled =dist_traveled;
+}
+void Node::setExplorable(bool explorable){
+    this->explorable = explorable;
+}
+
+bool Node::getExplorable(){
+    return explorable;
 }
 
 int Node::getEstimatedDist2Goal(Node* goal){

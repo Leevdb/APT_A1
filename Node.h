@@ -29,7 +29,10 @@ public:
     /*                                           */
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */
-
+ bool getExplorable();
+    void setExplorable(bool explorable);
+    Node(int row, int col);
+    Node(Node& other);
 
 private:
     /*                                           */
@@ -43,7 +46,7 @@ private:
     /*                                           */
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */
-
+ bool explorable;
 };
 
 #endif //COSC_ASSIGN_ONE_NODE

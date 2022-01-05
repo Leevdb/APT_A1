@@ -16,4 +16,20 @@ typedef char Env[ENV_DIM][ENV_DIM];
 #define SYMBOL_GOAL     'G'
 #define SYMBOL_START    'S'
 
+//direction from current node: Above/Below/Left/Right
+#define DIR_UP env[targetRow-1][targetCol]
+#define DIR_DOWN env[targetRow+1][targetCol]
+#define DIR_LEFT env[targetRow][targetCol-1]
+#define DIR_RIGHT env[targetRow][targetCol+1]
+
+#define MAXIMUM_DISTANCE (ENV_DIM * ENV_DIM)
+
+enum Direction{
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
+};
+
+
 #endif // COSC_ASSIGN_ONE_TYPES

@@ -43,7 +43,12 @@ private:
     /*                                           */
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */
-    
+  NodeList* nodesOpenList;
+    char goal = SYMBOL_GOAL;
+    char start = SYMBOL_START;
+    int targetRow;
+    int targetCol;
+
 };
 
 

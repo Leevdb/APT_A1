@@ -3,7 +3,8 @@
 
 #include "Types.h"
 
-class Node{
+class Node
+{
 public:
     /*                                           */
     /* DO NOT MOFIFY ANY CODE IN THIS SECTION    */
@@ -24,15 +25,16 @@ public:
     void setDistanceTraveled(int dist_traveled);
 
     //getter for estimated dist to goal - need to return -> Manhatten distance + distance traveled
-    int getEstimatedDist2Goal(Node* goal);
+    int getEstimatedDist2Goal(Node *goal);
 
     /*                                           */
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */
- bool getExplorable();
+
+    bool getExplorable();
     void setExplorable(bool explorable);
     Node(int row, int col);
-    Node(Node& other);
+    Node(Node &other);
 
 private:
     /*                                           */
@@ -41,12 +43,12 @@ private:
 
     int row;
     int col;
-    int dist_traveled;  // distance from start node
+    int dist_traveled; // distance from start node
 
     /*                                           */
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */
- bool explorable;
+    bool explorable;
 };
 
 #endif //COSC_ASSIGN_ONE_NODE

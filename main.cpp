@@ -1,3 +1,18 @@
+/*
+The pathsolver up to milestone has been completed, I did not attempt milestone 4.
+Basic approach:
+
+Goal node and current nodes are created once coords located
+node lists created for searched and unsearched nodes.
+Each direction is checked, distance calculated, checked if goal node reached, and then added to searched node list.
+Its basically heaps of for loops and if statements. The methods in pathsolver.cpp have lots of comments describing the 
+more detailed steps of the methods.
+
+Issue with MILESTONE 3:
+Occasionally in some test scenarios, the V symbol when travelling downs will not always display correctly 
+Doesn't always occur though as in other tests, this is not an issue.
+*/
+
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
@@ -17,10 +32,10 @@ void readEnvStdin(Env env);
 
 // Print out a Environment to standard output with path.
 // To be implemented for Milestone 3
-void printEnvStdout(Env env, NodeList* solution);
+void printEnvStdout(Env env, NodeList *solution);
 
-
-int main(int argc, char** argv){
+int main(int argc, char **argv)
+{
     // THESE ARE SOME EXAMPLE FUNCTIONS TO HELP TEST YOUR CODE
     // AS YOU WORK ON MILESTONE 2. YOU CAN UPDATE THEM YOURSELF
     // AS YOU GO ALONG.
@@ -30,51 +45,60 @@ int main(int argc, char** argv){
     //testNodeList();
     //std::cout << "DONE TESTING" << std::endl << std::endl;
 
-    // Load Environment 
+    // Load Environment
     Env env;
     readEnvStdin(env);
-    
+
     // Solve using forwardSearch
     // THIS WILL ONLY WORK IF YOU'VE FINISHED MILESTONE 2
-    PathSolver* pathSolver = new PathSolver();
+    PathSolver *pathSolver = new PathSolver();
     pathSolver->forwardSearch(env);
 
-    NodeList* exploredPositions = nullptr;
+    NodeList *exploredPositions = nullptr;
     exploredPositions = pathSolver->getNodesExplored();
 
     // Get the path
     // THIS WILL ONLY WORK IF YOU'VE FINISHED MILESTONE 3
-    NodeList* solution = pathSolver->getPath(env);
+
+        NodeList *solution = pathSolver->getPath(env);
 
     printEnvStdout(env, solution);
 
     delete pathSolver;
     delete exploredPositions;
     delete solution;
-
 }
 
-void readEnvStdin(Env env){
+void readEnvStdin(Env env)
+{
     int charsRead = 0;
-    
+
     //nested for loops to read in env
-    for(int row = 0; row < ENV_DIM; row++){
-        for(int col = 0; col < ENV_DIM; col++){
-            if(std::cin.good()) {
-            std::cin >> env[row][col];
-            charsRead ++;
+    for (int row = 0; row < ENV_DIM; row++)
+    {
+        for (int col = 0; col < ENV_DIM; col++)
+        {
+            if (std::cin.good())
+            {
+                std::cin >> env[row][col];
+                charsRead++;
             }
         }
     }
 
-    if (charsRead != (ENV_DIM * ENV_DIM)) {
-        std::cerr   << "ERROR: Only read " << charsRead  << " characters," << (ENV_DIM * ENV_DIM) << "charaters required, check input file." <<std::endl;;
+    if (charsRead != (ENV_DIM * ENV_DIM))
+    {
+        std::cerr << "ERROR: Only read " << charsRead << " characters," << (ENV_DIM * ENV_DIM) << "charaters required, check input file." << std::endl;
+        ;
     }
 }
 
-void printEnvStdout(Env env, NodeList* solution) {
-     for(int row = 0; row < ENV_DIM; row++){
-        for(int col = 0; col < ENV_DIM; col++){
+void printEnvStdout(Env env, NodeList *solution)
+{
+    for (int row = 0; row < ENV_DIM; row++)
+    {
+        for (int col = 0; col < ENV_DIM; col++)
+        {
             std::cout << env[row][col];
         }
         std::cout << std::endl;

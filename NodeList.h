@@ -32,8 +32,7 @@ public:
     /* YOU MAY ADD YOUR MODIFICATIONS HERE       */
     /*                                           */
 
-    void setLength(int i);
-
+  
 private:
     /*                                           */
     /* DO NOT MOFIFY THESE VARIABLES             */

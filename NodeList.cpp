@@ -32,11 +32,6 @@ NodeList::NodeList(NodeList &other)
     }
 }
 
-void NodeList::setLength(int i)
-{
-    length = i;
-}
-
 int NodeList::getLength()
 {
     return length;

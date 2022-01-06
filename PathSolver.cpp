@@ -345,7 +345,6 @@ NodeList *PathSolver::getPath(Env env)
                 
                 //Check to see if the goal has been reached yet, if so; stop pathing. It will always be the first
                 //value in the pathList array as that's where both the open and closed lists start in forwardSearch()
-               
                 if (currentNode->getCol() == pathList->getNode(0)->getCol() && currentNode->getRow() == pathList->getNode(0)->getRow())
                 {
                     pathNotFound = false;

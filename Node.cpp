@@ -2,7 +2,7 @@
 #include <iostream>
 
 //parameter constructor
-Node::Node(int row, int col, int dist_traveled)
+Node::Node(int row, int col, int dist_traveled) 
 {
     this->row = row;
     this->col = col;

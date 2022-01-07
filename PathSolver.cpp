@@ -113,7 +113,7 @@ NodeList *PathSolver::getNodesExplored()
 
 NodeList *PathSolver::getPath(Env env)
 {
-
+    //start is very similar to the forward search function.
     //available node indexes
     int availableRow[4] = {+1, 0, -1, 0};
     int availableCol[4] = {0, -1, 0, +1};
@@ -158,65 +158,15 @@ NodeList *PathSolver::getPath(Env env)
 
     NodeList *tempList = new NodeList();
     
-    while (!currentNode->isEqual(startNode))
-    {
-        tempList->addElement(currentNode);
-
-        //check the neighbours to see if there is a node with dist_traveled
-        // that is one less than that of current node
-        bool foundNode = false;
-        for (int i = 0; i < 4; ++i)
-        {
-            if (foundNode == false)
-            {
-                //get the neighbour
-                int exploredRow = currentNode->getRow() + availableRow[i];
-                int exploredCol = currentNode->getCol() + availableCol[i];
-
-                //check if it is inside the env
-                if ((exploredRow >= 0) && (exploredRow < ENV_DIM) && (exploredCol >= 0) && (exploredCol < ENV_DIM))
-                {
-                    Node* checkNode = new Node(exploredRow, exploredCol, 0);
-
-                    int j = 0;
-                    //check if the neighbout is in the nodesExplored list
-                    while (j < nodesExplored->getLength())
-                    {
-                        if (foundNode == false)
-                        {
-                            Node *tempNode = nodesExplored->getNode(j);
-                            if (tempNode->isEqual(checkNode) && tempNode->getDistanceTraveled() ==currentNode->getDistanceTraveled() - 1)
-                            {
-                                foundNode = true;
-                                currentNode = tempNode;
-                            }
-                        }
-                        ++j;
-                    }
-                    delete checkNode;
-                }
-            }
-        }
-    }
-    //adding start loop last    
-    tempList->addElement(startNode);
-
-    // flipping list order
-    NodeList *path = new NodeList();
-    for (int i = tempList->getLength() - 1; i >= 0; i--)
-    {
-        path->addElement(tempList->getNode(i));
-    }
-
-    NodeList *returnPath = new NodeList(*path);
+    //this is as far as I got i ran out of time to complete milestone 3.    
 
     //clean up
-    delete path;
+   
     delete tempList;
     delete startNode;
     delete goalNode;
 
-    return returnPath;
+    return nullptr;
 
 }
 

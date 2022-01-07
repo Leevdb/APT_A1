@@ -115,8 +115,8 @@ NodeList *PathSolver::getPath(Env env)
 {
     //start is very similar to the forward search function.
     //available node indexes
-    int availableRow[4] = {+1, 0, -1, 0};
-    int availableCol[4] = {0, -1, 0, +1};
+    //int availableRow[4] = {+1, 0, -1, 0};
+    //int availableCol[4] = {0, -1, 0, +1};
 
     Node *startNode = nullptr;
     Node *goalNode = nullptr;
@@ -142,19 +142,7 @@ NodeList *PathSolver::getPath(Env env)
         }
     }
 
-    Node *currentNode = nullptr;
-    bool goalFound = false;
-
-    // find the goal node in nodesExplored list
-    for (int i = 0; i < nodesExplored->getLength() && !goalFound; ++i)
-    {
-        Node *tempNode = nodesExplored->getNode(i);
-        if (tempNode->isEqual(goalNode))
-        {
-            currentNode = tempNode;
-            goalFound = true;
-        }
-    }
+    //bool goalFound = false;
 
     NodeList *tempList = new NodeList();
     

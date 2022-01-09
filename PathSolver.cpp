@@ -38,7 +38,7 @@ void PathSolver::forwardSearch(Env env)
             }
         }
     }
-    
+
     //Intialize the explored nodes list of nodes to be used with the pathfinder
     nodesExplored = new NodeList();
 
@@ -53,8 +53,8 @@ void PathSolver::forwardSearch(Env env)
 
     //select node P from openlist with smallest est distance from goal and is not in nodes explored.
     bool goalReached = false;
-    do  {
-
+    do
+    {
         Node *tempNode = nullptr;
         int minDistance = 1000;
         for (int i = 0; i < openList->getLength(); ++i)
@@ -78,9 +78,8 @@ void PathSolver::forwardSearch(Env env)
             int availableRow[4] = {+1, 0, -1, 0};
             int availableCol[4] = {0, -1, 0, +1};
 
-            //check all neighbours and add to openlist if good
+            //check all available and add to openlist if good
             for (int i = 0; i < 4; i++)
-
             {
                 int tempRow = currentNode->getRow() + availableRow[i];
                 int tempCol = currentNode->getCol() + availableCol[i];
@@ -96,11 +95,11 @@ void PathSolver::forwardSearch(Env env)
                 }
             }
 
-            nodesExplored->addElement(currentNode);
         }
+        nodesExplored->addElement(currentNode);
     } while (!goalReached);
 
-    //cleaning up
+    //cleaning up - hope i got them all
     delete goalNode;
     delete startNode;
     delete openList;
@@ -114,9 +113,9 @@ NodeList *PathSolver::getNodesExplored()
 NodeList *PathSolver::getPath(Env env)
 {
     //start is very similar to the forward search function.
-    //available node indexes
-    //int availableRow[4] = {+1, 0, -1, 0};
-    //int availableCol[4] = {0, -1, 0, +1};
+    //available node indexes (same as above)
+    int availableRow[4] = {+1, 0, -1, 0};
+    int availableCol[4] = {0, -1, 0, +1};
 
     Node *startNode = nullptr;
     Node *goalNode = nullptr;
@@ -128,7 +127,6 @@ NodeList *PathSolver::getPath(Env env)
 
         for (int col = 0; col < ENV_DIM; col++)
         {
-            std::cout << env[row][col] << " ";
             if (env[row][col] == SYMBOL_GOAL)
             {
                 //Create the goal node
@@ -142,20 +140,76 @@ NodeList *PathSolver::getPath(Env env)
         }
     }
 
-    //bool goalFound = false;
+    bool goalFound = false;
+    Node *currentNode = nullptr;
 
+    //to be populated with the solution path backwards from goal
     NodeList *tempList = new NodeList();
-    
-    //this is as far as I got i ran out of time to complete milestone 3.    
 
-    //clean up
-   
-    delete tempList;
+    // first find the goal node in nodesExplored list
+    for (int i = 0; i < nodesExplored->getLength() && !goalFound; ++i)
+    {
+        Node *tempNode = nodesExplored->getNode(i);
+        if (tempNode->isEqual(goalNode))
+        {
+            currentNode = tempNode;
+            goalFound = true;
+        }
+    }
+
+    while (!currentNode->isEqual(startNode))
+    {
+        tempList->addElement(currentNode);
+        bool foundNode = false;
+        //check the available nodes find the one 1 step lower distance travelled
+
+        for (int i = 0; i < 4; ++i)
+        {
+            if (foundNode == false)
+            {
+               //getting the next node
+                int exploredRow = currentNode->getRow() + availableRow[i];
+                int exploredCol = currentNode->getCol() + availableCol[i];
+
+                if ((exploredRow >= 0) && (exploredRow < ENV_DIM) && (exploredCol >= 0) && (exploredCol < ENV_DIM))
+                {
+                    Node checkNode(exploredRow, exploredCol, 0);
+                    int j = 0;
+                    while (j < nodesExplored->getLength())
+                    {
+                        if (foundNode == false)
+                        {
+                            Node *tempNode = nodesExplored->getNode(j);
+                            if (tempNode->isEqual(&checkNode) && tempNode->getDistanceTraveled() == currentNode->getDistanceTraveled() - 1)
+                            {
+                                foundNode = true;
+                                currentNode = tempNode;
+                            }
+                        }
+                        ++j;
+                    }
+                }
+            }
+        }
+    }
+    //start node this was missing so adding it here.
+    tempList->addElement(startNode);
+
+    //flipping list order to return that (uses deep copy)
+    NodeList *path = new NodeList();
+    for (int i = tempList->getLength() - 1; i >= 0; i--)
+    {
+        path->addElement(tempList->getNode(i));
+    }
+
+    NodeList *returnPath = new NodeList(*path);
+
+    //clean up - hopefully got everything :/
     delete startNode;
     delete goalNode;
+    delete tempList;
 
-    return nullptr;
-
+    return returnPath;
 }
 
 //-----------------------------

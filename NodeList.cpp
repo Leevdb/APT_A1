@@ -40,7 +40,7 @@ int NodeList::getLength()
 
 void NodeList::addElement(Node *newPos)
 {
-    Node* tempNode = new Node(*newPos);
+    Node *tempNode = new Node(*newPos);
     if (length < (NODE_LIST_ARRAY_MAX_SIZE - 1))
     {
         nodes[length] = tempNode;
